@@ -26,6 +26,7 @@ body {
     background-color: purple;
     float: left;
     border-radius: 25px;
+    box-shadow: 1px -2px 5px white, -3px 1px 4px rgb(137 71 71), 3px 1px 2px #23a343;
     transition: background-color 0.5s;
     -webkit-transition: background-color 0.5s;
     -moz-transition: background-color 0.5s;
@@ -124,7 +125,7 @@ button:hover {
     padding: 30px 10px;
     position: fixed;
     background: linear-gradient(45deg, black, red);
-    top: 57%;
+    top: 40%;
     left: 50%;
     color: white;
     display: flex;
@@ -141,7 +142,7 @@ button:hover {
 .game-over.active {
     visibility: visible;
     opacity: 1;
-    top: 67%;
+    top: 50%;
     transition: 0.5s;
 }
 
@@ -151,6 +152,12 @@ button:hover {
     border-radius: 5px;
 }
 
+@media (max-width: 500px) {
+    .game-over {
+        width: 70%;
+    }
+}
+
 @media (max-width: 380px) {
     #goal {
         font-size: 40px;
@@ -158,14 +165,5 @@ button:hover {
 
     #container {
         margin: 4em auto;
-    }
-
-    .game-over {
-        width: 70%;
-        top: 40%;
-    }
-
-    .game-over.active {
-        top: 50%;
     }
 }
