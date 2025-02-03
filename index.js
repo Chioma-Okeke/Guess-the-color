@@ -121,6 +121,7 @@ const convertAll = () => {
 
 const textErrorVibration = (square) => {
     square.classList.add("shake");
+    square.style.backgroundColor = bodyColor
     square.style.boxShadow = "0px 0px 5px 4px red";
     message.textContent = "Wrong, try again!";
     message.style.backgroundColor = "red";
