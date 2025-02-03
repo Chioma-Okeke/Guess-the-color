@@ -122,7 +122,7 @@ const convertAll = () => {
 const textErrorVibration = (square) => {
     square.classList.add("shake");
     square.style.boxShadow = "0px 0px 5px 4px red";
-    message.textContent = "Ouu, try again. You've got this!";
+    message.textContent = "Wrong, try again!";
     message.style.backgroundColor = "red";
     setTimeout(() => {
         square.classList.remove("shake");
