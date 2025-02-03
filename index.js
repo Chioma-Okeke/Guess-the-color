@@ -103,12 +103,9 @@ squares.forEach((square) => {
             winCount++;
             setTimeout(() => {
                 nextRound();
-            }, 800);
+            }, 1000);
         } else {
             textErrorVibration(square);
-            setTimeout(() => {
-                nextRound(square);
-            }, 800);
         }
         wins.textContent = winCount;
     });
@@ -117,20 +114,21 @@ squares.forEach((square) => {
 const convertAll = () => {
     squares.forEach((square) => {
         square.style.backgroundColor = targetColor;
-        message.textContent = "Nice one!";
+        message.textContent = "Correct!";
         message.style.backgroundColor = "green";
     });
 };
 
 const textErrorVibration = (square) => {
     square.classList.add("shake");
-    square.style.backgroundColor = bodyColor;
     square.style.boxShadow = "0px 0px 5px 4px red";
     message.textContent = "Ouu, try again. You've got this!";
     message.style.backgroundColor = "red";
     setTimeout(() => {
         square.classList.remove("shake");
-    }, 500);
+        square.style.boxShadow = "0px 0px 5px white";
+        message.textContent = "";
+    }, 1000);
 };
 
 const nextRound = (square) => {
