@@ -67,7 +67,7 @@ const getContrastingColors = (targetColor, numColors = 6, threshold = 128) => {
 
     squares.forEach((square, index) => {
         square.style.backgroundColor = contrastingColors[index].toString();
-        square.style.border = "none";
+        square.style.boxShadow = "0px 0px 4px white";
     });
 };
 
@@ -140,7 +140,7 @@ const nextRound = (square) => {
     generateTargetColor();
     getContrastingColors(targetColor);
     message.textContent = "";
-    square.style.boxShadow = "none";
+    square.style.boxShadow = "0px 0px 4px white";
 };
 
 reset.addEventListener("click", () => {
