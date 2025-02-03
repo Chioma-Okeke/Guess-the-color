@@ -1,100 +1,176 @@
-const squares = document.querySelectorAll(".square")
-const headerTexts = document.querySelector("header h1")
-var color = []
-const reset = document.querySelector("#reset")
-var winColor, winInde
-const goal = document.querySelector("#goal")
-const message = document.querySelector("#message")
-const numSquare = 6
-const bodyColor = window.getComputedStyle(document.body)['backgroundColor']
-const header = document.querySelector("header")
-setSquareColor(numSquare)
-const blurred = document.querySelector(".blur")
-const gameOverCard = document.querySelector(".game-over")
-let count = 0
+const colors = [
+    "rgb(255, 99, 71)",
+    "rgb(135, 206, 250)",
+    "rgb(50, 205, 50)",
+    "rgb(255, 215, 0)",
+    "rgb(70, 130, 180)",
+    "rgb(255, 69, 0)",
+    "rgb(218, 112, 214)",
+    "rgb(34, 139, 34)",
+    "rgb(255, 160, 122)",
+    "rgb(0, 255, 255)",
+    "rgb(255, 105, 180)",
+    "rgb(210, 180, 140)",
+    "rgb(123, 104, 238)",
+    "rgb(255, 140, 0)",
+    "rgb(95, 158, 160)",
+    "rgb(75, 0, 130)",
+    "rgb(240, 128, 128)",
+    "rgb(0, 191, 255)",
+    "rgb(46, 139, 87)",
+    "rgb(255, 20, 147)",
+];
+let contrastingColors = [];
+const squares = document.querySelectorAll(".square");
+const reset = document.querySelector("#reset");
+const goal = document.querySelector("#goal");
+const message = document.querySelector("#game-status");
+const bodyColor = window.getComputedStyle(document.body)["backgroundColor"];
+const wins = document.querySelector("#win-stat");
+const losses = document.querySelector("#loss-stat");
+let lossCount = 0;
+let winCount = 0;
+let targetColor;
 
+const generateTargetColor = () => {
+    targetColor = colors[Math.floor(Math.random() * colors.length)];
+    goal.style.backgroundColor = targetColor.toString();
+};
 
-squares.forEach(square => {
-    square.addEventListener("click", () => {
-        if (winColor === square.style.backgroundColor) {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: {y: 0.6}
-            })
-            convertAll()
-        } else {
-            count = count + 1
-            console.log(document)
-            textErrorVibration()
-            if (count === 5) {
-                square.style.backgroundColor = bodyColor
-                blurred.classList.toggle('active')
-                gameOverCard.classList.toggle('active')
-                return
-            }
-            square.style.backgroundColor = bodyColor
-            message.textContent = "Try again!"
+const luminanceGenerator = (rgb) => {
+    const [r, g, b] = rgb.match(/\d+/g).map(Number);
+    return (r * 299 + g * 587 + b * 114) / 1000;
+};
+
+const randomRgbGenerator = () =>
+    `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+        Math.random() * 256
+    )}, ${Math.floor(Math.random() * 256)})`;
+
+const getContrastingColors = (targetColor, numColors = 6, threshold = 128) => {
+    contrastingColors = [];
+    let targetLuminance = luminanceGenerator(targetColor);
+
+    while (contrastingColors.length < numColors - 1) {
+        let newColor = randomRgbGenerator();
+        let newLuminance = luminanceGenerator(newColor);
+
+        if (
+            Math.abs(targetLuminance - newLuminance) >= threshold &&
+            !contrastingColors.includes(newColor)
+        ) {
+            contrastingColors.push(newColor);
         }
-    })
-})
-
-function rgbGenerator() {
-    let red = Math.floor(Math.random()*256)
-    let green = Math.floor(Math.random()*256)
-    let blue = Math.floor(Math.random()*256)
-
-    let generatedColor = `rgb(${red}, ${green}, ${blue})`
-    return generatedColor
-}
-
-function convertAll () {
-    squares.forEach(square => {
-        square.style.backgroundColor = winColor.toString()
-        header.style.backgroundColor = winColor.toString()
-        reset.textContent= "Play Again?"
-        message.textContent = "Correct!"
-    })
-}
-
-function setSquareColor (numSquare) {
-    header.style.backgroundColor = "steelblue"
-
-    color.length = numSquare
-
-    // to generate the 6 colors
-    for(let i = 0; i<numSquare; i++) {
-        color[i] = rgbGenerator()
     }
+    contrastingColors.push(targetColor);
+    shuffleArray(contrastingColors);
 
-    // to set the color for each quare
-    for(let i = 0; i<numSquare; i++) {
-        squares[i].style.backgroundColor = color[i].toString()
+    squares.forEach((square, index) => {
+        square.style.backgroundColor = contrastingColors[index].toString();
+        square.style.border = "none";
+    });
+};
+
+const shuffleArray = (array) => {
+    let currentIndex = array.length;
+
+    while (currentIndex > 0) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+        ];
     }
-    winIndex = Math.floor(Math.random()*(color.length))
-    goal.textContent = color[winIndex]
-    winColor = color[winIndex]
-    message.textContent = ""
-}
+};
 
-function textErrorVibration () {
-    headerTexts.classList.add("shake")
+generateTargetColor();
+getContrastingColors(targetColor);
 
+squares.forEach((square) => {
+    square.addEventListener("click", () => {
+        if (targetColor === square.style.backgroundColor) {
+            confetti({
+                particleCount: 150,
+                spread: 90,
+                startVelocity: 40,
+                scalar: 1.2,
+                gravity: 0.7,
+                ticks: 200,
+                origin: { y: 0.6 },
+            });
+            convertAll();
+            winCount++;
+            setTimeout(() => {
+                nextRound();
+            }, 800);
+        } else {
+            lossCount++;
+            textErrorVibration(square);
+            setTimeout(() => {
+                nextRound(square);
+            }, 800);
+        }
+        losses.textContent = lossCount;
+        wins.textContent = winCount;
+    });
+});
+
+const convertAll = () => {
+    squares.forEach((square) => {
+        square.style.backgroundColor = targetColor;
+        message.textContent = "Nice one!";
+        message.style.backgroundColor = "green";
+    });
+};
+
+const textErrorVibration = (square) => {
+    square.classList.add("shake");
+    square.style.backgroundColor = bodyColor;
+    square.style.boxShadow = "0px 0px 5px 4px red";
+    message.textContent = "Ouu, try again. You've got this!";
+    message.style.backgroundColor = "red";
     setTimeout(() => {
-        headerTexts.classList.remove("shake") 
+        square.classList.remove("shake");
     }, 500);
-}
+};
 
-function resetGame() {
-    count = 0
-    blurred.classList.toggle('active')
-    gameOverCard.classList.toggle('active')
-    setSquareColor(numSquare)
-    reset.textContent = "New Colors"
-}
+const nextRound = (square) => {
+    generateTargetColor();
+    getContrastingColors(targetColor);
+    message.textContent = "";
+    square.style.boxShadow = "none";
+};
 
 reset.addEventListener("click", () => {
-    count = 0
-    setSquareColor(numSquare)
-    reset.textContent = "New Colors"
-})
+    targetColor = localStorage.getItem("initial target color");
+    goal.style.backgroundColor = targetColor;
+    contrastingColors = [];
+    contrastingColors = JSON.parse(
+        localStorage.getItem("initial contrasting colors")
+    );
+    squares.forEach((square, index) => {
+        square.style.backgroundColor = contrastingColors[index].toString();
+        square.style.boxShadow = "none";
+    });
+    message.textContent = "";
+    message.style.backgroundColor = "transparent";
+    winCount = 0;
+    lossCount = 0;
+    losses.textContent = lossCount;
+    wins.textContent = winCount;
+});
+
+window.addEventListener("load", () => {
+    if (
+        !localStorage.getItem("initial target color") &&
+        !localStorage.getItem("initial contrasting colors")
+    ) {
+        localStorage.setItem("initial target color", targetColor);
+        localStorage.setItem(
+            "initial contrasting colors",
+            JSON.stringify(contrastingColors)
+        );
+    }
+});

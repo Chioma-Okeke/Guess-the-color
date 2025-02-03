@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/index.css">
-    <title>Guess the color</title>
-</head>
-<body>
-    <div class="wrapper blur">
-        <header>
-            <h1 style="font-size: 25px;">The Great <br> <span id="goal"></span> <br>Game</h1>
-        </header>
-        <div class="options">
-            <div id="btn-container">
-                <button id="reset"><strong>New Colors</strong></button>
-                <span id="message"></span>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="icon" href="./logo.png" type="image/x-icon" />
+        <title>Shade Detective</title>
+    </head>
+    <body>
+        <div class="wrapper blur">
+            <h1>Shade Detective</h1>
+            <div>
+                <section class="stats">
+                    <div class="score-board">
+                        <div class="score-values" data-testid="score">
+                            <p>Wins</p>
+                            <p>
+                                <span id="win-stat">0</span> -
+                                <span id="loss-stat">0</span>
+                            </p>
+                            <p>Losses</p>
+                        </div>
+                        <button role="button" id="reset" data-testid="newGameButton">
+                            <strong>Reset</strong>
+                        </button>
+                    </div>
+                </section>
+                <section id="color-box">
+                    <div id="goal" data-testid="colorBox"></div>
+                </section>
+                <div id="game-instruction">
+                    <span data-testid="gameInstructions"
+                        >Guess the correct color!</span
+                    >
+                    <p id="game-status" data-testid="gameStatus" aria-live="polite"></p>
+                </div>
+            </div>
+            <div id="color-options">
+                <div class="square" data-testid="colorOption"></div>
+                <div class="square" data-testid="colorOption"></div>
+                <div class="square" data-testid="colorOption"></div>
+                <div class="square" data-testid="colorOption"></div>
+                <div class="square" data-testid="colorOption"></div>
+                <div class="square" data-testid="colorOption"></div>
             </div>
         </div>
-        <div id="container">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-        </div>
-    </div>
-    <div class="game-over">
-        <span>Game Over</span>
-        <button class="game-over-retry" onclick="resetGame()">Try Again!</button>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-    <script src="/index.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+        <script src="/index.js"></script>
+    </body>
 </html>
