@@ -28,7 +28,6 @@ const message = document.querySelector("#game-status");
 const bodyColor = window.getComputedStyle(document.body)["backgroundColor"];
 const wins = document.querySelector("#win-stat");
 const losses = document.querySelector("#loss-stat");
-let lossCount = 0;
 let winCount = 0;
 let targetColor;
 
@@ -106,13 +105,11 @@ squares.forEach((square) => {
                 nextRound();
             }, 800);
         } else {
-            lossCount++;
             textErrorVibration(square);
             setTimeout(() => {
                 nextRound(square);
             }, 800);
         }
-        losses.textContent = lossCount;
         wins.textContent = winCount;
     });
 });
@@ -157,8 +154,6 @@ reset.addEventListener("click", () => {
     message.textContent = "";
     message.style.backgroundColor = "transparent";
     winCount = 0;
-    lossCount = 0;
-    losses.textContent = lossCount;
     wins.textContent = winCount;
 });
 
