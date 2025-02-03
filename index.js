@@ -106,6 +106,9 @@ squares.forEach((square) => {
             }, 1000);
         } else {
             textErrorVibration(square);
+            setTimeout(() => {
+                nextRound();
+            }, 1000);
         }
         wins.textContent = winCount;
     });
@@ -134,6 +137,8 @@ const textErrorVibration = (square) => {
 const nextRound = (square) => {
     generateTargetColor();
     getContrastingColors(targetColor);
+    message.textContent = "Let's go!";
+    message.style.backgroundColor = "transparent";
     square.style.boxShadow = "0px 0px 4px white";
 };
 
