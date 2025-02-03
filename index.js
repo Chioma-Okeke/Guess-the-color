@@ -148,7 +148,7 @@ reset.addEventListener("click", () => {
         square.style.backgroundColor = contrastingColors[index].toString();
         square.style.boxShadow = "none";
     });
-    message.textContent = "";
+    message.textContent = "Let's go!";
     message.style.backgroundColor = "transparent";
     winCount = 0;
     wins.textContent = winCount;
