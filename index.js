@@ -128,14 +128,12 @@ const textErrorVibration = (square) => {
     setTimeout(() => {
         square.classList.remove("shake");
         square.style.boxShadow = "0px 0px 5px white";
-        // message.textContent = "";
     }, 1000);
 };
 
 const nextRound = (square) => {
     generateTargetColor();
     getContrastingColors(targetColor);
-    // message.textContent = "";
     square.style.boxShadow = "0px 0px 4px white";
 };
 
