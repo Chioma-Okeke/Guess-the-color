@@ -7,7 +7,6 @@ Welcome to **Shade Detective**! This is a fun and interactive color guessing gam
 - [How to Play](#how-to-play)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [License](#license)
 
 ## Game Overview
 In **Shade Detective**, a random target color is displayed, and you must guess which of the six color options matches the target. The game keeps track of your wins and losses, and you can reset the game to its initial state by clicking the "Reset" button.
