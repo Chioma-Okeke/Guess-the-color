@@ -101,6 +101,7 @@ squares.forEach((square) => {
             });
             convertAll();
             winCount++;
+            localStorage.setItem("score", winCount);
             setTimeout(() => {
                 nextRound();
             }, 900);
@@ -124,7 +125,7 @@ const convertAll = () => {
 
 const textErrorVibration = (square) => {
     square.classList.add("shake");
-    square.style.backgroundColor = bodyColor
+    square.style.backgroundColor = bodyColor;
     square.style.boxShadow = "0px 0px 5px 4px red";
     message.textContent = "Wrong, try again!";
     message.style.backgroundColor = "red";
@@ -156,10 +157,15 @@ reset.addEventListener("click", () => {
     message.textContent = "Let's go!";
     message.style.backgroundColor = "transparent";
     winCount = 0;
+    localStorage.setItem("score", winCount);
     wins.textContent = winCount;
 });
 
 window.addEventListener("load", () => {
+    if (localStorage.getItem("score")) {
+        winCount = localStorage.getItem("score");
+        wins.textContent = winCount;
+    }
     if (
         !localStorage.getItem("initial target color") &&
         !localStorage.getItem("initial contrasting colors")
