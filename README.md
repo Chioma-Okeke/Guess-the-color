@@ -25,7 +25,7 @@ In **Shade Detective**, a random target color is displayed, and you must guess w
 - **Game Instructions**: A message explaining the goal ("Guess the correct color!").
 - **Game Status**: After each guess, you’ll see whether you guessed correctly or not.
 - **Score Tracking**: Your win and loss count will be updated after each guess.
-- **Reset Functionality**: A reset button allows you to start a new round, resetting the game to its initial state.
+- **Reset Functionality**: A reset button allows you to start a new round, resetting the game to its initial state(which is saved in the sessionStorage on initial entry/load of the page).
 
 ## Technologies Used
 - **HTML**: The structure of the game page.
