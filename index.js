@@ -103,12 +103,12 @@ squares.forEach((square) => {
             winCount++;
             setTimeout(() => {
                 nextRound();
-            }, 1000);
+            }, 900);
         } else {
             textErrorVibration(square);
             setTimeout(() => {
                 nextRound();
-            }, 1000);
+            }, 900);
         }
         wins.textContent = winCount;
     });
@@ -131,7 +131,7 @@ const textErrorVibration = (square) => {
     setTimeout(() => {
         square.classList.remove("shake");
         square.style.boxShadow = "0px 0px 5px white";
-    }, 1000);
+    }, 900);
 };
 
 const nextRound = (square) => {
