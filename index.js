@@ -144,11 +144,11 @@ const nextRound = (square) => {
 };
 
 reset.addEventListener("click", () => {
-    targetColor = localStorage.getItem("initial target color");
+    targetColor = sessionStorage.getItem("initial target color");
     goal.style.backgroundColor = targetColor;
     contrastingColors = [];
     contrastingColors = JSON.parse(
-        localStorage.getItem("initial contrasting colors")
+        sessionStorage.getItem("initial contrasting colors")
     );
     squares.forEach((square, index) => {
         square.style.backgroundColor = contrastingColors[index].toString();
@@ -157,21 +157,21 @@ reset.addEventListener("click", () => {
     message.textContent = "Let's go!";
     message.style.backgroundColor = "transparent";
     winCount = 0;
-    localStorage.setItem("score", winCount);
+    sessionStorage.setItem("score", winCount);
     wins.textContent = winCount;
 });
 
 window.addEventListener("load", () => {
-    if (localStorage.getItem("score")) {
-        winCount = localStorage.getItem("score");
+    if (sessionStorage.getItem("score")) {
+        winCount = sessionStorage.getItem("score");
         wins.textContent = winCount;
     }
     if (
-        !localStorage.getItem("initial target color") &&
-        !localStorage.getItem("initial contrasting colors")
+        !sessionStorage.getItem("initial target color") &&
+        !sessionStorage.getItem("initial contrasting colors")
     ) {
-        localStorage.setItem("initial target color", targetColor);
-        localStorage.setItem(
+        sessionStorage.setItem("initial target color", targetColor);
+        sessionStorage.setItem(
             "initial contrasting colors",
             JSON.stringify(contrastingColors)
         );
