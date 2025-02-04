@@ -101,7 +101,7 @@ squares.forEach((square) => {
             });
             convertAll();
             winCount++;
-            localStorage.setItem("score", winCount);
+            sessionStorage.setItem("score", winCount);
             setTimeout(() => {
                 nextRound();
             }, 900);
